@@ -1,0 +1,122 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <stdbool.h>
+
+#define NUMBER_LENGTH 4
+
+bool isValidInput(int guess);
+bool hasDuplicateDigits(int number);
+int countBulls(int secretNumber, int guess);
+int countCows(int secretNumber, int guess);
+
+int main()
+{
+    int secretNumber;
+    int guess;
+    int bulls;
+    int cows;
+    bool gameOver = false;
+    srand(time(NULL));
+
+    do {
+        secretNumber = rand() % 9000 + 1000;  // Генерация секретного четырехзначного числа без первого нуля
+    } while (hasDuplicateDigits(secretNumber));
+
+    printf("Game \"bulls and cows\" started!\n");
+    printf("Try to guess a four-digit number.\n");
+
+    while (!gameOver) {
+        printf("enter your guess: ");
+        scanf_s("%d", &guess);
+
+        if (!isValidInput(guess)) {
+            printf("Invalid input. Try again.\n");
+            continue;
+        }
+
+        bulls = countBulls(secretNumber, guess);
+        cows = countCows(secretNumber, guess);
+
+        if (bulls == NUMBER_LENGTH) {
+            printf("Congratulations, you have won! Hidden number: %d\n", secretNumber);
+            gameOver = true;
+        }
+        else {
+            printf("Bulls: %d, Cows: %d\n", bulls, cows);
+        }
+    }
+
+    return 0;
+}
+
+bool isValidInput(int guess)
+{
+    if (guess < 1000 || guess > 9999) {
+        return false;
+    }
+
+    if (hasDuplicateDigits(guess)) {
+        return false;
+    }
+
+    return true;
+}
+
+bool hasDuplicateDigits(int number)
+{
+    int digits[10] = { 0 };
+
+    while (number > 0) {
+        int digit = number % 10;
+        digits[digit]++;
+        number /= 10;
+    }
+
+    for (int i = 0; i < 10; i++) {
+        if (digits[i] > 1) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+int countBulls(int secretNumber, int guess)
+{
+    int bulls = 0;
+
+    for (int i = 0; i < NUMBER_LENGTH; i++) {
+        if ((secretNumber % 10) == (guess % 10)) {
+            bulls++;
+        }
+
+        secretNumber /= 10;
+        guess /= 10;
+    }
+
+    return bulls;
+}
+
+int countCows(int secretNumber, int guess)
+{
+    int cows = 0;
+    int secretDigits[10] = { 0 };
+
+    while (secretNumber > 0) {
+        int digit = secretNumber % 10;
+        secretDigits[digit]++;
+        secretNumber /= 10;
+    }
+
+    while (guess > 0) {
+        int digit = guess % 10;
+        if (secretDigits[digit] > 0) {
+            cows++;
+            secretDigits[digit]--;
+        }
+        guess /= 10;
+    }
+
+    return cows;
+}
