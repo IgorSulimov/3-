@@ -1,0 +1,30 @@
+unsigned long long Problem_1(const int value_, const int* multiples_, int size_)
+{
+	unsigned long long sum = 0;
+	for (unsigned int number = 0; number < value_; number++)
+	{
+		for (unsigned int i = 0; i < size_; i++)
+		{
+			if (number % multiples_[i] == 0)
+			{
+				sum += number;
+				break;
+			}
+		}
+	}
+	return sum;
+}
+
+MAIN.C
+#include "Euler.h"
+#include <stdio.h>
+
+#define SIZE 2
+
+int main()
+{
+	int array[SIZE];
+	for (unsigned int i = 0; i < SIZE; i++)
+		scanf_s("%d", &array[i]);
+	printf("%llu\n", Problem_1(1000, array, SIZE));
+}
