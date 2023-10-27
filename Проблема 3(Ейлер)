@@ -1,0 +1,62 @@
+MAIN.C
+#include "Euler.h"
+#include <stdio.h>
+#include "Function.h"
+
+
+int main() {  
+	long long value_ = 0;
+	printf("value = ");
+	scanf_s("%llu", &value_);
+	printf("answer = %llu\n", Problem_3(value_));
+}
+
+
+
+EULER.C
+#include "Euler.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include "Function.h"
+unsigned long long Problem_3(const unsigned long long int value_)
+{
+	unsigned long long value = value_;
+	unsigned long long del = 2;
+	while (value % 2 == 0)
+		value /= 2;
+	del++;
+
+	while (del < value)
+	{
+		if (value % del == 0)
+		{
+			if (Prime(del) == 1)
+			{
+				while (value % del == 0)
+					value /= del;
+			}
+		}
+		del +=2;
+	}
+
+	return value;
+}
+
+
+FUNCTION.C
+#include "Function.h"
+#include <stdbool.h>
+#include "math.h"
+
+bool Prime(unsigned long long int x)
+{
+	if (x % 2 == 0)
+		return false;
+	
+	for (unsigned int n = 3; n < sqrt((double)x) +1; n+= 2)
+	{
+		if (x % n == 0)
+			return false;
+	}
+	return true;
+}
