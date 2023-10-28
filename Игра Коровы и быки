@@ -10,7 +10,7 @@ bool BullsAndCows();
 
 int main()
 {
-	printf("try to guess the number");
+	printf("try to guess the number:");
 	BullsAndCows();
 	return 0;
 }
