@@ -1,4 +1,4 @@
-FUNCTION.C
+EULER.C
 
 unsigned long long Problem_1(const int value_, const int* multiples_, int size_)
 {
