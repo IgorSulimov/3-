@@ -1,122 +1,172 @@
-#include <stdio.h>
+MAIN.C
+#include "Function.h"
+#include <stdbool.h>
 #include <stdlib.h>
 #include <time.h>
-#include <stdbool.h>
+#include <stdio.h>
 
-#define NUMBER_LENGTH 4
-
-bool isValidInput(int guess);
-bool hasDuplicateDigits(int number);
-int countBulls(int secretNumber, int guess);
-int countCows(int secretNumber, int guess);
+#define SEKRET_NUMBER 4
 
 int main()
 {
-    int secretNumber;
-    int guess;
-    int bulls;
-    int cows;
-    bool gameOver = false;
-    srand(time(NULL));
+	srand(time(NULL));
 
-    do {
-        secretNumber = rand() % 9000 + 1000;  // Генерация секретного четырехзначного числа без первого нуля
-    } while (hasDuplicateDigits(secretNumber));
+	int secret_number = 0;
+	if (RandomNumber(&secret_number, 1000, 10000))
+	{
+		printf("%d", secret_number);
+	}
+	else
+		return 1;
 
-    printf("Game \"bulls and cows\" started!\n");
-    printf("Try to guess a four-digit number.\n");
+	return 0;
+	
 
-    while (!gameOver) {
-        printf("enter your guess: ");
-        scanf_s("%d", &guess);
+	printf("Game \"bulls and cows\" started!\n");
+	printf("Try to guess a four-digit number.\n");
 
-        if (!isValidInput(guess)) {
-            printf("Invalid input. Try again.\n");
-            continue;
-        }
+	while (!BullAndCows) 
+	{
+		printf("enter your guess: ");
+		unsigned int guess_ = 0;
+		scanf_s("%d", &guess_);
 
-        bulls = countBulls(secretNumber, guess);
-        cows = countCows(secretNumber, guess);
+		if (!Bulls)
+		{
+			printf("Invalid input. Try again.\n");
+			continue;
+		}
 
-        if (bulls == NUMBER_LENGTH) {
-            printf("Congratulations, you have won! Hidden number: %d\n", secretNumber);
-            gameOver = true;
-        }
-        else {
-            printf("Bulls: %d, Cows: %d\n", bulls, cows);
-        }
-    }
-
-    return 0;
+		if (BullAndCows)
+		{
+			printf("Congratulations, you have won! Hidden number: %d\n", secret_number);
+		}
+			else 
+		    {
+			printf("Bulls: %d, Cows: %d\n", Bulls, Cows);
+		    }
+		
+	}
+	return 0;
 }
 
-bool isValidInput(int guess)
+
+
+-------------------------------------------------------------------------------------------------------------------
+Function.c
+#include "Function.h"
+#include <stdbool.h>
+#include <stdlib.h>
+#include <time.h>
+#include <stdio.h>
+
+#define SEKRET_NUMBER 4
+
+bool RandomNumber(int* val_, const int from_, const int to_)
 {
-    if (guess < 1000 || guess > 9999) {
-        return false;
-    }
+	if (val_ == NULL)
+		return false;
 
-    if (hasDuplicateDigits(guess)) {
-        return false;
-    }
+	if (from_ >= to_)
+		return false;
 
-    return true;
+	*val_ = from_ + rand() % (to_ - from_);
+	return true;
+}
+
+bool BullAndCows()
+{
+	unsigned int secret_number = 0;
+	if (RandomNumber(&secret_number, 1000, 10000))
+	{
+		while (true)
+		{
+			unsigned int guess_number = 0;
+			scanf_s("%u", &guess_number);
+
+			if (secret_number == guess_number)
+				break;
+
+			printf("Bulls = %d\n", Bulls(secret_number, guess_number));
+			printf("Cows = %d\n", Cows(secret_number, guess_number));
+		}
+	}
+	else
+		return false;
+	
+	printf("YOU WIN!\n");
+	return true;
+}
+
+int Cows(unsigned int rand_, unsigned int guess_)
+{
+	
+	int cows = 0;
+	int secretDigits[10] = { 0 };
+
+	while (rand_ > 0) 
+	{
+		int digit = rand_ % 10;
+		secretDigits[digit]++;
+		rand_ /= 10;
+	}
+
+	while (guess_ > 0)
+	{
+		int digit = guess_ % 10;
+		if (secretDigits[digit] > 0) {
+			cows++;
+			secretDigits[digit]--;			}
+		guess_ /= 10;
+	}
+	return cows;
+}
+
+int Bulls(unsigned int rand_, unsigned int guess_)
+{
+	unsigned int bulls = 0;
+
+	for (unsigned int i = 0; i < SEKRET_NUMBER; i++)
+	{
+		if (rand_ % 10 == (guess_ % 10))
+		{
+			bulls++;
+		}
+
+		rand_ /= 10;
+		guess_ /= 10;
+	}
+	return bulls;
 }
 
 bool hasDuplicateDigits(int number)
 {
-    int digits[10] = { 0 };
+	int digits[10] = { 0 };
 
-    while (number > 0) {
-        int digit = number % 10;
-        digits[digit]++;
-        number /= 10;
-    }
+	while (number > 0) {
+		int digit = number % 10;
+		digits[digit]++;
+		number /= 10;
+	}
 
-    for (int i = 0; i < 10; i++) {
-        if (digits[i] > 1) {
-            return true;
-        }
-    }
+	for (int i = 0; i < 10; i++) {
+		if (digits[i] > 1) {
+			return true;
+		}
+	}
 
-    return false;
+	return false;
 }
 
-int countBulls(int secretNumber, int guess)
-{
-    int bulls = 0;
+------------------------------------------------------------------------------------------------------------------
+Function.h
+#pragma once
+#include <stdbool.h>
 
-    for (int i = 0; i < NUMBER_LENGTH; i++) {
-        if ((secretNumber % 10) == (guess % 10)) {
-            bulls++;
-        }
+bool RandomNumber(int* val_, const int from_, const int to_);
 
-        secretNumber /= 10;
-        guess /= 10;
-    }
+bool BullAndCows();
 
-    return bulls;
-}
+int Cows(unsigned int rand_, unsigned int guess_);
 
-int countCows(int secretNumber, int guess)
-{
-    int cows = 0;
-    int secretDigits[10] = { 0 };
-
-    while (secretNumber > 0) {
-        int digit = secretNumber % 10;
-        secretDigits[digit]++;
-        secretNumber /= 10;
-    }
-
-    while (guess > 0) {
-        int digit = guess % 10;
-        if (secretDigits[digit] > 0) {
-            cows++;
-            secretDigits[digit]--;
-        }
-        guess /= 10;
-    }
-
-    return cows;
-}
+int Bulls(unsigned int rand_, unsigned int guess_);
