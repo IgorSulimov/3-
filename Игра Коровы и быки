@@ -1,54 +1,44 @@
 MAIN.C
+
 #include "Function.h"
 #include <stdbool.h>
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
 
-#define SEKRET_NUMBER 4
+bool BullsAndCows();
 
 int main()
 {
-	srand(time(NULL));
-
-	int secret_number = 0;
-	if (RandomNumber(&secret_number, 1000, 10000))
-	{
-		printf("%d", secret_number);
-	}
-	else
-		return 1;
-
-	return 0;
-	
-
-	printf("Game \"bulls and cows\" started!\n");
-	printf("Try to guess a four-digit number.\n");
-
-	while (!BullAndCows) 
-	{
-		printf("enter your guess: ");
-		unsigned int guess_ = 0;
-		scanf_s("%d", &guess_);
-
-		if (!Bulls)
-		{
-			printf("Invalid input. Try again.\n");
-			continue;
-		}
-
-		if (BullAndCows)
-		{
-			printf("Congratulations, you have won! Hidden number: %d\n", secret_number);
-		}
-			else 
-		    {
-			printf("Bulls: %d, Cows: %d\n", Bulls, Cows);
-		    }
-		
-	}
+	printf("try to guess the number");
+	BullsAndCows();
 	return 0;
 }
+
+bool BullsAndCows()
+{
+	unsigned int secret_number = 0;
+	if (RandomNumber(&secret_number, 1000, 10000))
+	{
+		while (true)
+		{
+			unsigned int guess_number = 0;
+			scanf_s("%u", &guess_number);
+
+			if (secret_number == guess_number)
+				break;
+
+			printf("Bulls = %d\n", Bulls(secret_number, guess_number));
+			printf("Cows = %d\n", Cows(secret_number, guess_number));
+		}
+	}
+	else
+		return false;
+
+	printf("YOU WIN!\n");
+	return true;
+}
+
 
 
 
