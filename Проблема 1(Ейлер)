@@ -1,3 +1,5 @@
+FUNCTION.C
+
 unsigned long long Problem_1(const int value_, const int* multiples_, int size_)
 {
 	unsigned long long sum = 0;
@@ -15,6 +17,7 @@ unsigned long long Problem_1(const int value_, const int* multiples_, int size_)
 	return sum;
 }
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 MAIN.C
 #include "Euler.h"
 #include <stdio.h>
