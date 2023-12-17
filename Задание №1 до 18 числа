@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "Fun.h"
+#include <string.h>
+#define SIZE 100
+
+int main() 
+{
+	char str[SIZE] = "adAadABAAda";
+	char res[SIZE];
+	int n = Str_Len(str);
+	Str_cpy(str, res);
+	int j = 0;
+	for (int i = 0; i < n; i++)                             
+	{
+		if (str[i] >= 'A' && str[i] <= 'Z')
+		{
+			res[j++] = '.';
+			res[j++] = ' ';
+		}
+		res[j++] = str[i];
+		
+	}
+	printf("%s", res);
+}
