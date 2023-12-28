@@ -1,0 +1,136 @@
+<main.c>
+#include <stdio.h>
+#include "Function.h"
+#include <stdlib.h>
+#include <math.h>
+#define SIZE 101
+
+
+int main()
+{
+    
+    int n;
+
+
+    printf("Matrix size: ");
+    scanf_s("%d", &n);
+
+    double* x = malloc(n * sizeof(double));
+    double matrix[SIZE][SIZE];
+    double* vector = malloc(n * sizeof(double));
+
+
+    printf("Matrix elements:\n");
+    for (int i = 0; i < n; i++) 
+    {
+        for (int j = 0; j < n; j++) 
+        {
+            scanf_s("%lf", &matrix[i][j]);
+        }
+    }
+
+    printf("Vector elements:\n");
+    for (int o = 0; o < n; o++) 
+    {
+        scanf_s("%lf", &vector[o]);
+    }
+
+      
+    printf("System solution:\n");
+    Finding_unknowns(n, matrix, vector, x);
+    for (int q = 0; q < n; q++) 
+    {
+        printf("x%d = %1.3lf\n", q + 1, x[q]);
+    }
+
+
+
+    free(vector);
+    free(x);
+    return 0;
+}
+
+
+
+................................................................................................................................................................
+#include "Function.h"
+#include <stdio.h>
+#include <math.h>
+#define SIZE 101
+
+double Determinant(int n, double matrix[SIZE][SIZE]) 
+{
+    if (n == 1)
+        return matrix[0][0];
+    if (n == 2)
+        return (matrix[0][0] * matrix[1][1] - (matrix[0][1] * matrix[1][0]));
+    
+    double det = 0;
+    double minor[SIZE][SIZE];
+
+    for (int l = 0; l < n; l++) 
+    {
+        int row = 0;
+        for (int i = 1; i < n; i++) 
+        {
+            int col = 0;
+            for (int j = 0; j < n; j++)
+            {
+                if (j == l) 
+                {
+                    continue;
+                }
+                minor[row][col] = matrix[i][j];
+                col++;
+            }
+            row++;
+        }
+        det += pow(-1, l) * (matrix[0][l] * Determinant(n - 1, minor));
+    }
+    return det;
+}
+
+double Finding_unknowns(int n, double matrix[SIZE][SIZE], double* vector, double* x) 
+{
+    double det_mat = Determinant(n, matrix);
+
+    if (det_mat == 0) 
+    {
+        printf("The system has no solutions\n");
+        return -1;
+    }
+
+    double X_minor[SIZE][SIZE];
+
+    for (int m = 0; m < n; m++) 
+    {
+        for (int i = 0; i < n; i++) 
+        {
+            for (int j = 0; j < n; j++) 
+            {
+                if (j == m)
+                {
+                    X_minor[i][j] = vector[i];
+                }
+                else
+                {
+                    X_minor[i][j] = matrix[i][j];
+                }
+            }
+        }
+
+        x[m] = Determinant(n, X_minor) / det_mat;
+    }
+    for (int i = 0; i < n; i++)
+        return x[i];
+}
+
+.......................................................................................................
+<Function.h>
+#pragma once
+
+#define SIZE 101
+
+
+double Determinant(int n, double matrix[SIZE][SIZE]);
+double Finding_unknowns(int n, double matrix[SIZE][SIZE], double* vector, double* x);
