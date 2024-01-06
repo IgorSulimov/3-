@@ -1,0 +1,49 @@
+<main.c>
+#include <stdio.h>
+#include "Fun.h"
+int main()
+{
+	char* n = "342991131";
+	printf("%d", minPartitions(n));
+}
+
+
+.......................................
+<Function.c>
+#include "Fun.h"
+#include <stdio.h>
+
+int minPartitions(char* n) {
+    int max = 0;
+    int k = 0;
+    int q = 1;
+    for (int i = 0; n[i] != '\0'; i++)
+    {
+        int d = 1 * q;
+        k = k + 1 * q * ((int)n[i] - 48);
+        q = q * 10;
+    }
+    k = IsPalendrom(k);
+    for (int j = 0; k > 0;)
+    {
+        int p = k % 10;
+        if (max < p)
+            max = p;
+        k = k / 10;
+    }
+    return max;
+}
+
+int IsPalendrom(int number_)
+{
+    int original = number_;
+    int revers = 0;
+
+    while (original > 0)
+    {
+        char d = original % 10;
+        revers = revers * 10 + d;
+        original /= 10;
+    }
+    return revers;
+}
