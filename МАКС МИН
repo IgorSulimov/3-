@@ -1,0 +1,48 @@
+BigNumber* Add(BigNumber* bn1_, BigNumber* bn2_)             // ������� ��������
+{
+	BigNumber* result = malloc(sizeof(BigNumber));
+	if (result == NULL)
+		return NULL;
+
+	result->size = max(bn1_->size, bn2_->size) + 1;
+
+
+	result->digits = (digit*)calloc(result->size, sizeof(digit));
+	if (result->digits == NULL)
+		return NULL;
+
+	BigNumber* max = NULL;
+	BigNumber* min = NULL;
+	if (bn1_->size >= bn2_->size)
+	{
+		max = bn1_;
+		min = bn2_;
+	}
+	else
+	{
+		max = bn2_;
+		min = bn1_;
+	}
+
+	unsigned int sub = max->size - min->size;
+	unsigned int q1 = 0;
+
+	for (int i = min->size - 1; i > -1; --i)
+	{
+		unsigned int sum = max->digits[i + sub] + min->digits[i] + q1;
+
+		q1 = sum / 10;
+
+		result->digits[i + sub + 1] = sum % 10;
+	}
+	int d = max->size - min->size - 1;
+	for (; d > -1; --d)
+	{
+		result->digits[d + 1] = (max->digits[d] + q1) % 10;
+		if (max->digits[d] + q1 > 9) 
+			q1 = (max->digits[d] + q1) / 10;
+		else
+			q1 = 0;
+	}
+	result->digits[d + 1] = q1;
+}
