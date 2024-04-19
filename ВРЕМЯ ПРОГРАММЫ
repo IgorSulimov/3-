@@ -1,0 +1,7 @@
+#include <time.h>
+clock_t start, end;
+start = clock();
+
+
+end = clock();
+	printf("Time: %.4lf\n", (double)(end - start) / (CLOCKS_PER_SEC));
