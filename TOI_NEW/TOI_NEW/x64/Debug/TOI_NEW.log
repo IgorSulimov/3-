@@ -1,0 +1,3 @@
+﻿  main.cpp
+G:\TOI_NEW\TOI_NEW\main.cpp(642,11): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  TOI_NEW.vcxproj -> G:\TOI_NEW\x64\Debug\TOI_NEW.exe

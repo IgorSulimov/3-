@@ -1,0 +1,32 @@
+q1:
+set t = 8 ;
+rem1:
+
+L: jump L123
+L2: jump L34
++ - & * % / end ;
+1 2 3 int vector ; 
+set P = E
+while T do P end
+if K then b else p
+cin >> x
+cout << x 
+switch ( Lime ) when 1 2 otherwise D
+throw ;
+throw rem x < y No > p ;
+$%%
+%%
+++
+--
+123PPP
+< > != >= <= =
+!+
+C++
+Li133
+[1,23,456]
+23er
+9i:
+[1,2,3,r]
+[1,45;678]
+[1,2,67
+[1,2,3,4,5,6,7,8,9,10,11]

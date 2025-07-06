@@ -1,0 +1,20 @@
+L: jump L123
++ - & * % / end ;
+1 2 3 int vector ; 
+set P = E
+while T do P end
+if K then b else p
+cin >> x
+cout << x 
+switch ( Lime ) when 1 2 otherwise D
+throw ;
+throw rem x < y No > p ;
+$%%
+%%
+++
+--
+123PPP
+< > != >= <= =
+!+
+C++
+Li133

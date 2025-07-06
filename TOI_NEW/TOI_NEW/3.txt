@@ -1,0 +1,74 @@
+﻿<S> -> <Prog>
+<Prog> -> <Oper> <Prog>
+<Prog> -> <Oper>
+<Oper> -> ; <Oper'>
+<Oper> -> set <Perem> = <E> ; <Oper'>
+<Oper> -> while <Test> do <Prog> end ; <Oper'>
+<Oper> -> for each V in <E> do <Prog> end ; <Oper'>
+<Oper> -> if <Test> then <Prog> <Else> end ; <Oper'>
+<Oper> -> if <Test> then <Prog> end ; <Oper'>
+<Oper> -> L: <Oper'>
+<Oper> -> jump L ; <Oper'>
+<Oper> -> switch ( <E> ) <Translation> <Any_hap> end ; <Oper'>
+<Oper> -> throw ; <Oper'>
+<Oper> -> rem <Oper'>
+<Oper> -> cin >> <Cin> ; <Oper'>
+<Oper> -> cout <Cout> ; <Oper'>
+<Oper> -> ; 
+<Oper> -> set <Perem> = <E> ; 
+<Oper> -> while <Test> do <Prog> end ; 
+<Oper> -> for each V in <E> do <Prog> end ; 
+<Oper> -> if <Test> then <Prog> <Else> end ; 
+<Oper> -> if <Test> then <Prog> end ; 
+<Oper> -> L: 
+<Oper> -> jump L ; 
+<Oper> -> switch ( <E> ) <Translation> <Any_hap> end ; 
+<Oper> -> throw ; 
+<Oper> -> rem 
+<Oper> -> cin >> <Cin> ; 
+<Oper> -> cout <Cout> ; 
+<Oper'> -> <Ob> <Oper'>
+<Ob> -> <Perem> : <Type> ;
+<Perem> -> , V
+<Perem> -> V 
+<Type> -> int
+<Type> -> vector
+<Test> -> <E> <R> <E>
+<Else> -> else <Prog>
+<Cin> -> V >> <Cin>
+<Cin> -> V
+<Cout> -> << <E> 
+<Cout> -> << <E> <Cout>
+<Translation> -> <Transfer_when> <Translation'>
+<Translation> -> <Transfer_when>
+<Translation'> -> <Transfer_when> <Translation'>
+<Translation'> -> <Transfer_when>
+<Transfer_when> -> when <Transfer_Const> : <Prog>
+<Transfer_Const> -> C
+<Transfer_Const> -> C , <Transfer_Const>
+<Any_hap> -> otherwise <Prog> 
+<E> -> <T> <E'> 
+<E> -> <T>
+<E'> -> + <T> <E'>
+<E'> -> - <T> <E'> 
+<E'> -> + <T> 
+<E'> -> - <T> 
+<T> -> <F> <T'> 
+<T> -> <F>
+<T'> -> * <F> <T'>
+<T'> -> / <F> <T'> 
+<T'> -> * <F> 
+<T'> -> / <F> 
+<T'> -> % <F> <T'>
+<T'> -> & <F> <T'> 
+<T'> -> % <F> 
+<T'> -> & <F> 
+<F> -> V 
+<F> -> C 
+<F> -> ( <E> ) 
+<F> -> concat ( <E> , <E> ) 
+<F> -> shiftl ( <E> , <E> )  
+<F> -> shiftr ( <E> , <E> ) 
+<F> -> sub_vec ( <E> , <E> , <E> ) 
+<F> -> add ( <E> , <E> ) 
+<F> -> delete ( <E> , <E> )
