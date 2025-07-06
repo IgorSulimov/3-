@@ -1,0 +1,20 @@
+read
+pop x
+read 
+pop z
+push x
+push 1
+push 3
+subvec
+write
+push x
+shiftl 3
+write
+push x
+shiftr 3
+write
+push x
+push z
+concat
+write
+end

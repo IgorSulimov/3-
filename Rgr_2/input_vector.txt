@@ -1,0 +1,25 @@
+push v
+push k
++
+write
+push d
+push q
+-
+write
+push d
+push q
+*
+write
+push d
+push q
+/
+write
+push d
+push q
+%
+write
+push d
+push q
+&
+write
+end

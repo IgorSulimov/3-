@@ -1,0 +1,5 @@
+read 5
+pop x
+push x
+write
+end

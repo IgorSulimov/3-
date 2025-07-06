@@ -1,0 +1,16 @@
+push v
+push 1
+push 3
+subvec
+write
+push x
+shiftl 3
+write
+push y
+shiftr 3
+write
+push x
+push y
+concat
+write
+end

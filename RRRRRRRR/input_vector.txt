@@ -1,0 +1,29 @@
+read
+pop d
+read
+pop q
+push d
+push q
++
+write
+push d
+push q
+-
+write
+push d
+push q
+*
+write
+push d
+push q
+/
+write
+push d
+push q
+%
+write
+push d
+push q
+&
+write
+end
